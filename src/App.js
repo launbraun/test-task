@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {connect} from "react-redux";
+import {emptyState, getUsers} from "./redux/users-reducer";
+import FirstPage from "./components/FirstPage";
+import {Route} from "react-router";
+import SecondPage from "./components/SecondPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+
+    render() {
+
+        return (
+            <div>
+                <Route exact path={'/'}
+                       render={() => <FirstPage getUsers={this.props.getUsers}
+                                                emptyState={this.props.emptyState}
+                                                isFetching={this.props.isFetching}/>}/>
+                <Route path={'/second-page'}
+                       render={() => <SecondPage users={this.props.users}/>}/>
+            </div>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    users: state.users,
+    isFetching: state.users.isFetching
+})
+
+
+export default connect(mapStateToProps, {getUsers, emptyState})(App);
