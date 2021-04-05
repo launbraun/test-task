@@ -39,9 +39,14 @@ export const cleanState = () => ({type: CLEAN_STATE})
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 
 
-export const getUsers = (page) => {
+export const getUsers = () => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true))
+
+        const getRandomInt = () => {
+            return Math.floor(Math.random() * 2 + 1);
+        }
+        const page = getRandomInt()
         const data = await userAPI.getUsers(page)
         dispatch(setUsers(data))
         dispatch(toggleIsFetching(false))

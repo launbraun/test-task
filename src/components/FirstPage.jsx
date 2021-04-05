@@ -3,6 +3,12 @@ import {NavLink} from "react-router-dom";
 import '../App.css'
 import Preloader from "./Preloader";
 
+function getRandomInt() {
+    return Math.floor(Math.random() * 2 + 1);
+}
+
+
+
 const FirstPage = ({getUsers, emptyState, isFetching}) => {
 
     return (
